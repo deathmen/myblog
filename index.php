@@ -15,6 +15,9 @@ if (!empty($_GET["url"])) {
     //获取URL参数
     array_shift($urlArray);
     $queryString = empty($urlArray) ? array() : $urlArray;
+    echo 'queryString:';
+    var_dump($queryString);
+    echo '<br/>';
     /*
     echo '<br>';
     echo  $controllerName ;

@@ -10,7 +10,7 @@ foreach ($arr as  $value1 )
         
     }
     $id=$value1['id'];
-    echo '<a href="http://localhost/php/myblog/index/update/'.$id.'">链接文本</a>';
+    echo '<a href="http://localhost/php/myblog/index/update/'.$id.'">编辑</a>';
     echo "<br/>";
     
 }

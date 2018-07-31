@@ -71,6 +71,7 @@ class sql
         $str=rtrim($str,',');
         //修改SQL语句
         $sql="update $table set $str where $where";
+        echo $sql;
         $this->query($sql);
         //返回受影响的行数
         return mysqli_affected_rows($this->conn);
@@ -113,6 +114,7 @@ class sql
         }else 
         {
             echo '查询出错';
+            return 0;
             
         }
         
@@ -124,7 +126,7 @@ class sql
     public  function  del($id,$tablename)
     {
         
-        mysqli_query($con,"DELETE FROM  $tablename WHERE id=$id ");
+      $this->query("DELETE FROM  $tablename WHERE id=$id ");
         
  
         

@@ -1,13 +1,21 @@
 <?php
 
 include  __DIR__.'/../Models/indexModel.php';
-echo date("Y-m-d");
+
 class index
 {
-   public function getlist()
+    private  function  db()
+    {
+        $indexModel =new indexModel;
+        return  $indexModel;
+        
+    }
+ 
+    
+    public function getlist()
    {
-       $indexModel =new indexModel;
-       $arr=$indexModel->select('blogs');
+    
+       $arr=$this->db()->select('blogs','order by id');
        include  __DIR__.'/../views/indexView.php';
       
        
@@ -44,6 +52,36 @@ class index
    }
    
    
+   
+   public  function  del()
+   {
+       
+       if ($_SERVER["REQUEST_METHOD"] == "POST")
+       {
+           $id= $this->test_input($_POST["id"]);
+       }
+       
+       
+       $url_id=$GLOBALS['queryString'];
+       if(isset($_POST["id"])&&$url_id[0]<>"")
+   {
+      $this->db()->del($id, 'blogs');
+       
+ 
+   }else {
+       
+       
+       echo '<script>alert("nothing to do");
+      location.href= "http://localhost/php/myblog/index/getlist";
+
+</script>';
+     //  header('Location:http://localhost/php/myblog/index/getlist');
+   }
+       
+       
+       
+   }
+   
    public  function  update()
    {
        
@@ -54,6 +92,7 @@ class index
            $title = $this->test_input($_POST["title"]);
            $text = $this->test_input($_POST["text"]);
             $creater = $this->test_input($_POST["creater"]);
+            $btn = $this->test_input($_POST["creater"]);
            //$comment = test_input($_POST["comment"]);
           // $gender = test_input($_POST["gender"]);
        }
@@ -61,7 +100,15 @@ class index
        {
        $index =new indexModel;
        $data=array('title'=>$title,'text'=>$text,'creater'=>$creater);
-     $n=  $index->update('blogs', $data, "id=$id");
+       $n=  $index->update('blogs', $data, "id=$id");
+       echo("<br>正在保存！！".$n);
+       if($n==1)
+       {
+     header('Location:http://localhost/php/myblog/index/getlist');
+       }else{
+           echo "没有变化";
+           
+       }
      
        }
        
